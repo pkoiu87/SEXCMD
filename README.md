@@ -3,6 +3,7 @@
 USAGE : perl determine.pl sex_marker_filtered.hg19.final.fasta input.fastq.gz
 
 SEXCMD is available at https://github.com/pkoiu87/SEXCMD
+
 The code is written in Perl and bash script.
 This tool is supported on Linux and needs Python, lastz, blastall and bwa.
 The tool uses gzip compressed fastq file as input and R1 and R2 file can be used in case of paired-end or mate pair.
@@ -15,6 +16,8 @@ And you should give marker fasta file path, input fastq file path as auguements.
 3. bwa(version 7.0 or later)
 4. blastall
 5. lastz(Release 1.02.00)
+
+
 
 If you want to create marker file, you can make own sex marker file for your datafiles.
 There are 6 process steps for creating own sex marker file.
