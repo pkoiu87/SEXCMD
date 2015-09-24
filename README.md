@@ -23,13 +23,16 @@ If you want to create marker file, you can make own sex marker file for your dat
 There are 6 process steps for creating own sex marker file.
 
 1. Extract sex chromosome from Reference genome(ex. Human)
+
 python util/0.extract_chr_from_REF.py hg19.fasta X > hg19.chrX.fasta
 python util/0.extract_chr_from_REF.py hg19.fasta Y > hg19.chrY.fasta
 
 2. Mapping between sex chromosomes
+
 lastz hg19.chrX.fasta hg19.chrY.fasta --format=maf > chrX_chrY.maf
 
 3. Generate sex marker text file
+
 python util/1.sex_marker.py chrX_chrY.maf HG19.ucsc.gtf 35 > sex_marker.hg19.txt
   distance between marker : 35(recommended)
 python util/2.sex_marker_filtered.py sex_marker.hg19.txt HG19.ucsc.gtf 151 5 > sex_marker_filtered.hg19.txt
@@ -37,13 +40,17 @@ python util/2.sex_marker_filtered.py sex_marker.hg19.txt HG19.ucsc.gtf 151 5 > s
   admit missmatch count : 5
 
 4. Convert sex marker file format(text -> fasta)
+
 python util/3.make_markerFASTA.py sex_marker_filtered.hg19.txt
 
 5. Filtered ONLY MAPPED to chrX, chrY
+
 blastall -p blastn -d hg19 -i sex_marker_filtered.hg19.fasta -a 16 -W 8 -m 9 > sex_marker_filtered.hg19.fasta.blastm9
 python util/4.blast_filter.py sex_marker_filtered.hg19.fasta sex_marker_filtered.hg19.fasta.blastm9 sex_marker_filtered.hg19.final.fasta
 
 6. index sex marker file
+
 bwa index -a is sex_marker_filtered.hg19.final.fasta
+
 
 final sex marker : sex_marker_filtered.hg19.final.fasta
